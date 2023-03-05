@@ -1,7 +1,7 @@
 class Solution {
 public:
     int dis[50002],OO = 0x3f3f3f3f;
-    unordered_map<int,vector<int>>mp;
+    map<int,vector<int>>mp;
     int minJumps(vector<int>& arr) {
         for(int i=0;i<arr.size();i++){
             mp[arr[i]].push_back(i);
@@ -18,16 +18,16 @@ public:
             int u=q.front();
             q.pop();
             for(auto m:mp[arr[u]]){
-                if(dis[m]==OO){
+                if(dis[u]+1<dis[m]){
                     dis[m]=dis[u]+1;
                     q.push(m);
                 }
             }
-            if(u+1<arr.size() && dis[u+1]==OO){
+            if(u+1<arr.size() && dis[u]+1<dis[u+1]){
                 dis[u+1]=dis[u]+1;
                 q.push(u+1);
             }
-            if(u-1>=0 && dis[u-1]==OO){
+            if(u-1>=0 && dis[u]+1<dis[u-1]){
                 dis[u-1]=dis[u]+1;
                 q.push(u-1);
             }
