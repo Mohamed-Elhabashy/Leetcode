@@ -8,7 +8,7 @@ public:
         return count>=totalTrips;
     }
     long long minimumTime(vector<int>& time, int totalTrips) {
-        unsigned long long l=0,r=1000000000000000000;
+        long long l=0,r=LLONG_MAX -1;
         while(l<r){
             long long mid=(l+r)/2;
             
