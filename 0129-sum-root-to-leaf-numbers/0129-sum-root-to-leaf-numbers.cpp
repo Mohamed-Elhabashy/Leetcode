@@ -11,21 +11,19 @@
  */
 class Solution {
 public:
-    vector<int>leaf;
     int sumNumbers(TreeNode* root) {
-        solve(root,0);
-        int ans=0;
-        for(auto x:leaf)ans+=x;
-        return ans;
+        int sumleaf=0;
+        solve(root,0,sumleaf);
+        return sumleaf;
     }
-    void solve(TreeNode* root,int number){
+    void solve(TreeNode* root,int number,int& sumleaf){
         if(root==nullptr)return ;
         if(root->right==nullptr && root->left==nullptr){
             number=(number*10)+root->val;
-            leaf.push_back(number);
+            sumleaf+=number;
             return ;
         }
-        solve(root->right,number*10+root->val);
-        solve(root->left,number*10+root->val);
+        solve(root->right,number*10+root->val,sumleaf);
+        solve(root->left,number*10+root->val,sumleaf);
     }
 };
