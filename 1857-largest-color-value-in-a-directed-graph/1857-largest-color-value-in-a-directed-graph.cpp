@@ -1,12 +1,12 @@
 class Solution {
 public:
-    vector<int>adj[100002];
+    vector<vector<int>>adj;
     vector<int>vis,stack;
     vector<vector<int>>dp;
     bool cycle=0;
     int largestPathValue(string colors, vector<vector<int>>& edges) {
         int n=colors.size();
-        vis.resize(n);stack.resize(n);
+        vis.resize(n);stack.resize(n);adj.resize(n);
         dp.resize(n,vector<int>(26));
         for(auto edge:edges){
             if(edge[0]==edge[1])return -1;
@@ -22,6 +22,10 @@ public:
         
         return cycle?-1:ans;
     }
+    void calculate(vector<int>& v1,vector<int>& v2){
+        for(int i=0;i<26;i++)
+            v1[i]=max(v1[i],v2[i]);
+    }
     void dfs(int u,string& colors){
         vis[u]=1;
         stack[u]=1;
@@ -30,16 +34,13 @@ public:
             if(vis[v]){
                 if(stack[v])
                     cycle=1;
-                for(int i=0;i<26;i++)
-                    tmp[i]=max(tmp[i],dp[v][i]);
+                calculate(dp[u],dp[v]);
                 continue;
             }
             dfs(v,colors);
-            for(int i=0;i<26;i++)
-                tmp[i]=max(tmp[i],dp[v][i]);
+            calculate(dp[u],dp[v]);
         }
-        tmp[colors[u]-'a']++;
+        dp[u][colors[u]-'a']++;
         stack[u]=0;
-        dp[u]=tmp;
     }
 };
