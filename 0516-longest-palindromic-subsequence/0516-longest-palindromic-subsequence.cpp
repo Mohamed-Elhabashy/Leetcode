@@ -1,19 +1,17 @@
 class Solution {
 public:
-    int n;
+    int dp[1000][1000];
     int longestPalindromeSubseq(string s) {
-        n=s.size();
-        vector<vector<int>>dp(n,vector<int>(n,-1));
-        return solve(0,n-1,dp,s);
+        return solve(0,s.size()-1,s);
     }
-    int solve(int i,int j,vector<vector<int>>&dp,string& s){
+    int solve(int i,int j,string& s){
         if(i==j)return 1;
         if(i>j)return 0;
         int &ret=dp[i][j];
-        if(~ret)return ret;
-        if(s[i]==s[j])return ret=2+solve(i+1,j-1,dp,s);
-        ret=solve(i,j-1,dp,s);
-        ret=max(ret,solve(i+1,j,dp,s));
+        if(ret)return ret;
+        if(s[i]==s[j])return ret=2+solve(i+1,j-1,s);
+        ret=solve(i,j-1,s);
+        ret=max(ret,solve(i+1,j,s));
         return ret;
     }
 };
