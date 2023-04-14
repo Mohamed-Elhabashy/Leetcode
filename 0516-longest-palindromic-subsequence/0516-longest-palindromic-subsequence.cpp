@@ -11,9 +11,9 @@ public:
         if(i>j)return 0;
         int &ret=dp[i][j];
         if(~ret)return ret;
+        if(s[i]==s[j])return ret=2+solve(i+1,j-1,dp,s);
         ret=solve(i,j-1,dp,s);
         ret=max(ret,solve(i+1,j,dp,s));
-        if(s[i]==s[j])ret=(ret,2+solve(i+1,j-1,dp,s));
         return ret;
     }
 };
