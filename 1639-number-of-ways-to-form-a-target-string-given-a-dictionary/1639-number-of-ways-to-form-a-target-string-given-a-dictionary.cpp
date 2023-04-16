@@ -12,13 +12,13 @@ public:
         memset(dp,-1,sizeof dp);
         return solve(0,0,target);
     }
-    int solve(int idxW,int idxT,string& target){
+    long long solve(int idxW,int idxT,string& target){
         if(idxT==target.size())return 1;
         if(idxW==len)return 0;
         long long& ret=dp[idxW][idxT];
         if(~ret)return ret;
-        ret=solve(idxW+1,idxT,target)%MOD;
-        ret+=((frq[idxW][target[idxT]-'a']%MOD)*(solve(idxW+1,idxT+1,target)%MOD))%MOD;
+        ret=solve(idxW+1,idxT,target);
+        ret+=frq[idxW][target[idxT]-'a']*solve(idxW+1,idxT+1,target);
         ret%=MOD;
         return ret;
     }
