@@ -1,7 +1,8 @@
 class Solution {
 public:
     int frq[1000][26];
-    long long dp[1000][1000],MOD=1e9+7,len;
+    long long dp[1000][1000];
+    int MOD=1e9+7,len;
     int numWays(vector<string>& words, string target) {
         len=words[0].size();
         for(int i=0;i<len;i++){
