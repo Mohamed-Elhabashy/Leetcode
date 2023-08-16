@@ -10,7 +10,6 @@ public:
         vector<int>ans;
         ans.push_back(pq.top().first);
         for(int i=k,j=0;i<nums.size();i++,j++){
-            cout<<i<<" "<<j<<endl;
             mp[nums[j]]--;
             mp[nums[i]]++;
             while(pq.size() && pq.top().second<=j)pq.pop();
