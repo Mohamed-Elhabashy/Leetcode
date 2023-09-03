@@ -3,14 +3,13 @@ public:
     int MOD=1e9+7;
     map<pair<int,pair<int,int>>, long long>mp;
     int countKSubsequencesWithMaxBeauty(string s, int k) {
-        map<char,int>m;
-        for(auto x:s)m[x]++;
-        if(m.size()<k)return 0;
+        map<char,int>frq;
+        for(auto x:s)frq[x]++;
+        if(frq.size()<k)return 0;
         vector<int>v;
         for(char i='a';i<='z';i++){
-            if(m[i]>0)
-                v.push_back(m[i]);
-              
+            if(frq[i]>0)
+                v.push_back(frq[i]);
         }
         sort(v.rbegin(),v.rend());
         int mx=0;
