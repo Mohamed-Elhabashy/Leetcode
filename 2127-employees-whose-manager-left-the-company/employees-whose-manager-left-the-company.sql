@@ -1,7 +1,14 @@
 # Write your MySQL query statement below
-SELECT e.employee_id
-FROM Employees e
-LEFT JOIN Employees m
-ON e.manager_id = m.employee_id 
-WHERE m.employee_id IS NULL AND e.salary<30000 AND e.manager_id IS NOT NULL
-ORDER BY e.employee_id
+SELECT employee_id 
+FROM Employees as e
+WHERE salary < 30000
+AND manager_id IS NOT NULL
+AND (
+    SELECT 
+    NOT EXISTS(
+        SELECT 1
+        FROM Employees as e2
+        WHERE e2.employee_id = e.manager_id
+    )
+)
+ORDER BY employee_id
